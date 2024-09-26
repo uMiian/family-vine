@@ -56853,7 +56853,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: '/home/roma/Documents/classes-2025-f/capstone/family-vine/.webpack/renderer/main_window/preload.js'
+      preload: '/home/roman/Documents/classes-2025-f/capstone/family-vine/.webpack/renderer/main_window/preload.js'
     }
   });
 

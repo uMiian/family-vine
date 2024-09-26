@@ -390,7 +390,7 @@ module.exports = require("events");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("9858ea09c63fc1aa8469")
+/******/ 		__webpack_require__.h = () => ("4d94d0c0b82571424b47")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -853,7 +853,7 @@ module.exports = require("events");
 /******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
-/******/ 	if (typeof __webpack_require__ !== 'undefined') __webpack_require__.ab = "/home/roma/Documents/classes-2025-f/capstone/family-vine/.webpack/renderer" + "/native_modules/";
+/******/ 	if (typeof __webpack_require__ !== 'undefined') __webpack_require__.ab = "/home/roman/Documents/classes-2025-f/capstone/family-vine/.webpack/renderer" + "/native_modules/";
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
