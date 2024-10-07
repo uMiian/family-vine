@@ -60,12 +60,54 @@ async function createMedia() {
   }
 }
 
-async function getMedia() {
-  return await Media.findAll();
+
+async function deleteMedia(event, id) {
+  const result = await Media.destroy({ where: { id } });
+  return result > 0;  // returns true if any row was deleted
+}
+
+async function updateMedia(event, id, updates) {
+  const result = await Media.update(updates, { where: { id } });
+  return result[0] > 0;  // returns true if any row was updated
+}
+
+async function getMedia(event, filters = {}) {
+  try {
+      const options = {
+          where: {},
+          order: [['createdAt', 'DESC']]  // Example of ordering the results
+      };
+
+      // Construct the query conditions based on filters
+      if (filters.description) {
+          options.where.description = {
+              [Sequelize.Op.like]: `%${filters.description}%`
+          };
+      }
+
+      if (filters.when) {
+          options.where.when = filters.when;
+      }
+
+      if (filters.filepath) {
+          options.where.filepath = {
+              [Sequelize.Op.like]: `%${filters.filepath}%`
+          };
+      }
+
+      // Retrieve filtered media entries
+      const mediaEntries = await Media.findAll(options);
+      return mediaEntries;
+  } catch (error) {
+      console.error('Failed to retrieve media:', error);
+      throw error;  // Re-throw the error to handle it in the renderer process if needed
+  }
 }
 
 app.whenReady().then(() => {
-  // Listen for events and call appropriate functions
+  ipcMain.handle('Media::getMedia', getMedia);
   ipcMain.handle('Media::createMedia', createMedia);
   ipcMain.handle('Media::getMedia', getMedia);
-})
+  ipcMain.handle('Media::deleteMedia', deleteMedia);
+  ipcMain.handle('Media::updateMedia', updateMedia);
+});
