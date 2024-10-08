@@ -72,7 +72,7 @@ async function updateMedia(event, id, updates) {
 }
 
 async function getMedia(event, filters = {}) {
-  try {
+  try { 
       const options = {
           where: {},
           order: [['createdAt', 'DESC']]  // Example of ordering the results
@@ -105,7 +105,6 @@ async function getMedia(event, filters = {}) {
 }
 
 app.whenReady().then(() => {
-  ipcMain.handle('Media::getMedia', getMedia);
   ipcMain.handle('Media::createMedia', createMedia);
   ipcMain.handle('Media::getMedia', getMedia);
   ipcMain.handle('Media::deleteMedia', deleteMedia);
