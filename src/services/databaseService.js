@@ -13,8 +13,7 @@ const createSequelizeInstance = (db_file_path) => {
   return sequelizeInstance;
 }
 
-// Function to connect to database
-// returns new Sequelize instance and models
+// Function to connect to database and return models
 const connectToDatabase = async (db_file_path) => {
   try {
     // Create and authenticate connection to database
@@ -24,7 +23,7 @@ const connectToDatabase = async (db_file_path) => {
     // Initialize models
     const models = initializeModels(sequelize);
 
-    return { sequelize, models }
+    return models;
 
   } catch (error) {
     throw error;
