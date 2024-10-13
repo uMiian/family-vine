@@ -1,7 +1,18 @@
+// Import model constructors
+import MediaModel from './models/media.model';
+import LocationModel from './models/location.model';
+import PersonModel from './models/person.model';
+
 /**
-  * Given the database models, establish the proper relationships.
+  * Given the sequelize instance, create the models and their relationshsips
   */
-const createRelationships = (models) => {
+function createModels(sequelizeInstance) {
+  const models = {
+    Media: MediaModel(sequelizeInstance),
+    Person: PersonModel(sequelizeInstance),
+    Location: LocationModel(sequelizeInstance),
+  }
+
   
   // Create relationships between models
   models.Person.belongsToMany(models.Media, {through: 'MediaPerson', foreignKey: 'personId'});
@@ -12,4 +23,4 @@ const createRelationships = (models) => {
   return models;
 }
 
-export { createRelationships }
+export { createModels }

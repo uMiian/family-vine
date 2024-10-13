@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
-const { Media } = require("./db")
+import { createDatabaseHandlers } from './handlers/DatabaseHandlers';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -27,6 +27,11 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  // Load all handlers
+  createDatabaseHandlers();
+
+
+  // Creat the new window!
   createWindow();
 
   // On OS X it's common to re-create a window in the app when the
@@ -50,63 +55,70 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-// Handle IPC Messages
-async function createMedia() {
-  const { canceled, filePaths } = await dialog.showOpenDialog() 
-  console.log(canceled)
-  console.log(filePaths)
-  if (!canceled) {
-    await Media.create({filepath: filePaths[0]})
-  }
-}
+
+// Load all handlers
+//app.whenReady().then(() => {
+//})
 
 
-async function deleteMedia(event, id) {
-  const result = await Media.destroy({ where: { id } });
-  return result > 0;  // returns true if any row was deleted
-}
-
-async function updateMedia(event, id, updates) {
-  const result = await Media.update(updates, { where: { id } });
-  return result[0] > 0;  // returns true if any row was updated
-}
-
-async function getMedia(event, filters = {}) {
-  try { 
-      const options = {
-          where: {},
-          order: [['createdAt', 'DESC']]  // Example of ordering the results
-      };
-
-      // Construct the query conditions based on filters
-      if (filters.description) {
-          options.where.description = {
-              [Sequelize.Op.like]: `%${filters.description}%`
-          };
-      }
-
-      if (filters.when) {
-          options.where.when = filters.when;
-      }
-
-      if (filters.filepath) {
-          options.where.filepath = {
-              [Sequelize.Op.like]: `%${filters.filepath}%`
-          };
-      }
-
-      // Retrieve filtered media entries
-      const mediaEntries = await Media.findAll(options);
-      return mediaEntries;
-  } catch (error) {
-      console.error('Failed to retrieve media:', error);
-      throw error;  // Re-throw the error to handle it in the renderer process if needed
-  }
-}
-
-app.whenReady().then(() => {
-  ipcMain.handle('Media::createMedia', createMedia);
-  ipcMain.handle('Media::getMedia', getMedia);
-  ipcMain.handle('Media::deleteMedia', deleteMedia);
-  ipcMain.handle('Media::updateMedia', updateMedia);
-});
+// COMMENTED OUT TO WORK ON DATABASE SERVICE AND HANDLERS
+//app.whenReady().then(() => {
+//  ipcMain.handle('Media::createMedia', createMedia);
+//  ipcMain.handle('Media::getMedia', getMedia);
+//  ipcMain.handle('Media::deleteMedia', deleteMedia);
+//  ipcMain.handle('Media::updateMedia', updateMedia);
+//});
+//
+//// Handle IPC Messages
+//async function createMedia() {
+//  const { canceled, filePaths } = await dialog.showOpenDialog() 
+//  console.log(canceled)
+//  console.log(filePaths)
+//  if (!canceled) {
+//    await Media.create({filepath: filePaths[0]})
+//  }
+//}
+//
+//
+//async function deleteMedia(event, id) {
+//  const result = await Media.destroy({ where: { id } });
+//  return result > 0;  // returns true if any row was deleted
+//}
+//
+//async function updateMedia(event, id, updates) {
+//  const result = await Media.update(updates, { where: { id } });
+//  return result[0] > 0;  // returns true if any row was updated
+//}
+//
+//async function getMedia(event, filters = {}) {
+//  try { 
+//      const options = {
+//          where: {},
+//          order: [['createdAt', 'DESC']]  // Example of ordering the results
+//      };
+//
+//      // Construct the query conditions based on filters
+//      if (filters.description) {
+//          options.where.description = {
+//              [Sequelize.Op.like]: `%${filters.description}%`
+//          };
+//      }
+//
+//      if (filters.when) {
+//          options.where.when = filters.when;
+//      }
+//
+//      if (filters.filepath) {
+//          options.where.filepath = {
+//              [Sequelize.Op.like]: `%${filters.filepath}%`
+//          };
+//      }
+//
+//      // Retrieve filtered media entries
+//      const mediaEntries = await Media.findAll(options);
+//      return mediaEntries;
+//  } catch (error) {
+//      console.error('Failed to retrieve media:', error);
+//      throw error;  // Re-throw the error to handle it in the renderer process if needed
+//  }
+//}
