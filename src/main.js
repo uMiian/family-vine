@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 import { createDatabaseHandlers } from './handlers/DatabaseHandlers';
+import { createWorkingDirectoryHandlers } from './handlers/WorkingDirectoryHandlers'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -29,6 +30,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   // Load all handlers
   createDatabaseHandlers();
+  createWorkingDirectoryHandlers();
 
 
   // Creat the new window!

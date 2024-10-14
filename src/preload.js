@@ -9,5 +9,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
   createNewDatabase: async (newDbPath) => {
     await ipcRenderer.invoke('create-new-database', newDbPath);
+  },
+
+  setWorkingDirectory: async (folderPath) => {
+    await ipcRenderer.invoke('set-working-directory', folderPath);
+  },
+  getWorkingDirectory: async () => {
+    return await ipcRenderer.invoke('get-working-directory');
   }
 });
