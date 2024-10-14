@@ -2,6 +2,10 @@
 
 TODO: Pictures of app
 
+## What is Family Vine
+
+Family Vine is a media manager with an added empahsis on maintaing your family story. Alongside saving media, it also allows you to tag it with relevant information, like who's in it, where it was taken, and for what event. In doing so, family vine weaves together a story of events through your photos and videos. What's more is that it allows you to traverse this story as you add more memories!
+
 ## Tools
 
 * Electron 
