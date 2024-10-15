@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/addmedia.css';
 
+
 function AddMedia() {
     const [mediaCreationStatus, setMediaCreationStatus] = useState("Try to add Media!");
     const [medias, setMedias] = useState([]);
