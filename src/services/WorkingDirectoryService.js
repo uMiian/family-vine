@@ -49,16 +49,45 @@ export async function saveFileToWorkingDirectory(fileToCopy, copyFileName) {
 }
 
 /**
-  * Get a filepath from the user.
+  * Get the path to a media file from the user.
   */
-export async function getFileLocation() {
+export async function getFilePath() {
   try {
     // Prompt the user to select a file
     const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile']});
-    console.log("Got the file:", filePaths);
-    return filePaths;
+    const filePath = filePaths[0];
+    console.log("Got the file:", filePath);
+    return filePath;
   } catch (error) {
     console.error('Error getting file location:', error);
+    throw error;
+  }
+}
+
+/**
+  * Get the path to a family vine directory from the user.
+  */
+export async function getDirectoryPath() {
+  try {
+    // Prompt user to select a directory
+    const { filePaths } = await dialog.showOpenDialog({ properties: ['openDirectory'] })
+    const folderPath = filePaths[0]
+    console.log("Got the directory:", folderPath);
+    return folderPath
+  } catch (error) {
+    console.error('Error getting directory path:', error);
+  }
+}
+
+/**
+  * Create a new directory based on a given filepath
+  * @param {String} - The file path of the new directory.
+  */
+export async function createNewDirectory(folderPath) {
+  try {
+    await fs.mkdir(folderPath);
+  } catch (error) {
+    console.error("Could not create directory:", error);
     throw error;
   }
 }

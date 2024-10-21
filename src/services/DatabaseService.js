@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import { sqlite3 } from 'sqlite3';
 import * as fs from 'fs/promises';
 import { createModels } from '../db/modelRelationships'
 
@@ -52,7 +53,7 @@ export async function createNewDatabase(newDbPath) {
       await sequelizeInstance.close();
       sequelizeInstance = null;
     }
-    
+
     // Establish new connection
     sequelizeInstance = new Sequelize({
       dialect: 'sqlite',
@@ -67,7 +68,7 @@ export async function createNewDatabase(newDbPath) {
     models = createModels(sequelizeInstance);
     
     sequelizeInstance.sync({ force: true});
-    console.log("Created databse at ", newDbPath)
+    console.log("Created database at ", newDbPath)
   } catch (error) {
     console.error("Could not connect to database ", newDbPath, ": ", error);
   }
