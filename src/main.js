@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
-import { createDatabaseHandlers } from './handlers/DatabaseHandlers';
-import { createWorkingDirectoryHandlers } from './handlers/WorkingDirectoryHandlers'
+import { createFamilyVineHandlers } from './handlers/FamilyVineHandlers.js';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -29,9 +28,7 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Load all handlers
-  createDatabaseHandlers();
-  createWorkingDirectoryHandlers();
-
+  createFamilyVineHandlers();
 
   // Creat the new window!
   createWindow();
