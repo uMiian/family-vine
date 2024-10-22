@@ -1,15 +1,15 @@
 /* Main container that covers the entire application window */
 .add-media-container {
     display: flex;
-    width: 100vw;  /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    box-sizing: border-box; /* Include padding and borders in total size */
-    overflow: hidden; /* Prevent overflow */
+    width: 100vw; 
+    height: 100vh; 
+    box-sizing: border-box;
+    overflow: hidden; 
 }
 
 /* Left panel styling */
 .left-panel {
-    width: 25%;   /* Takes 25% of the width */
+    width: 25%;  
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -21,7 +21,6 @@
     box-sizing: border-box; /* Include padding and borders in total size */
 }
 
-/* Button styling within the left panel */
 .left-panel button {
     background-color: transparent;
     border: none;
@@ -40,15 +39,14 @@
     border-radius: 15px;
 }
 
-/* Confirm button positioned at the bottom of the left panel */
+/* puts button at bottom */
 .confirm-button {
     margin-top: auto;
 }
 
-/* Media preview area styling */
 .media-preview {
-    flex: 1;  /* Take up the remaining width (75%) */
-    height: 100%; /* Full height to match the container */
+    flex: 1;  /* take up the other 75% of page */
+    height: 100%; 
     border: 1px solid black;
     outline: 2px solid #04AA6D;
     display: flex;
@@ -83,4 +81,32 @@
 
 .custom-file-upload:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #0eb570;
+    outline: 0;
+    font-size: 1rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input-group input::placeholder {
+    color: white; 
+}
+
+.input-group label {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 5px;
 }
