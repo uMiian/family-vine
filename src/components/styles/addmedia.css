@@ -1,0 +1,112 @@
+/* Main container that covers the entire application window */
+.add-media-container {
+    display: flex;
+    width: 100vw; 
+    height: 100vh; 
+    box-sizing: border-box;
+    overflow: hidden; 
+}
+
+/* Left panel styling */
+.left-panel {
+    width: 25%;  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: linear-gradient(to bottom, #0eb570, #027b47);
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #000;
+    min-width: 250px; /* Prevent shrinking too small */
+    box-sizing: border-box; /* Include padding and borders in total size */
+}
+
+.left-panel button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.left-panel button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+/* puts button at bottom */
+.confirm-button {
+    margin-top: auto;
+}
+
+.media-preview {
+    flex: 1;  /* take up the other 75% of page */
+    height: 100%; 
+    border: 1px solid black;
+    outline: 2px solid #04AA6D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    box-sizing: border-box; /* Include padding in the element's total size */
+    overflow: hidden; /* Prevent overflow inside the preview area */
+}
+
+/* File upload input styling */
+#file-upload {
+    display: none;
+}
+
+/* Custom file upload button styling */
+.custom-file-upload {
+    background-color: transparent;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.custom-file-upload:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #0eb570;
+    outline: 0;
+    font-size: 1rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input-group input::placeholder {
+    color: white; 
+}
+
+.input-group label {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 5px;
+}
