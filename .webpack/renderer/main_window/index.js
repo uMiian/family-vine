@@ -592,7 +592,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("8621e7f117f91ca293d4")
+/******/ 		__webpack_require__.h = () => ("9de6eff64c7b7dc986ea")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -1061,6 +1061,10 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 	(() => {
 /******/ 		__webpack_require__.p = "/";
 /******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __webpack_require__ !== 'undefined') __webpack_require__.ab = "/home/roman/Documents/classes-2025-f/capstone/family-vine/.webpack/renderer" + "/native_modules/";
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {

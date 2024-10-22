@@ -1,6 +1,10 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  createMedia: () => ipcRenderer.invoke('Media::createMedia'),
-  getMedia: () => ipcRenderer.invoke('Media::getMedia'),
-})
+  loadFamilyVine: async () => {
+    await ipcRenderer.invoke('load-family-vine');
+  },
+  createFamilyVine: async (familyVineName) => {
+    await ipcRenderer.invoke('create-family-vine', familyVineName);
+  }
+});
