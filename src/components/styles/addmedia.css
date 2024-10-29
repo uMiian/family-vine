@@ -90,7 +90,7 @@
 .input-group input {
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #0eb570;
+    border-bottom: 2px solid #3a6d66;
     outline: 0;
     font-size: 1rem;
     color: white;
@@ -105,6 +105,9 @@
 
 .input-group label {
     font-size: 1.3rem;
-    color: white;
+    color: #6fd3c5;
     margin-bottom: 5px;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    line-height: 1.0;
 }

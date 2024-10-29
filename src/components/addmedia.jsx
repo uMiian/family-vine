@@ -20,10 +20,10 @@ function AddMedia() {
         setMediaCreationStatus(failed ? "Failed to add media to DB :(" : "Successfully added media to DB!");
     }
 
-    async function getMedia() {
-        const mediaList = await window.electronAPI.getMedia();
-        setMedias(mediaList); // Updates medias state with the result
-    }
+    // async function getMedia() {
+    //     const mediaList = await window.electronAPI.getMedia();
+    //     setMedias(mediaList); // Updates medias state with the result
+    // }
 
     useEffect(() => {
         // Log medias after the state is updated
