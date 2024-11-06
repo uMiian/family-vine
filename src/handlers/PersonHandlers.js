@@ -23,7 +23,6 @@ export async function createPersonHandlers() {
   // Handle getting a person with a specific id
   ipcMain.handle('get-person-by-id', async (context, id) => {
     try {
-      console.log("NIODCNSACL ", id);
       return getPersonByID(id);
     } catch (error) {
       throw error;
