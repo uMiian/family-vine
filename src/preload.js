@@ -16,5 +16,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
   getPersonByID: async (id) => {
     return await ipcRenderer.invoke('get-person-by-id', id);
+  },
+
+  createLocation: async (locationName) => {
+    return await ipcRenderer.invoke('create-location', locationName);
+  },
+  getAllLocations: async () => {
+    return await ipcRenderer.invoke('get-all-locations');
+  },
+  getLocationByID: async (id) => {
+    return await ipcRenderer.invoke('get-location-by-id', id);
   }
 });
