@@ -20,10 +20,25 @@ function AddMedia() {
         setMediaCreationStatus(failed ? "Failed to add media to DB :(" : "Successfully added media to DB!");
     }
 
-    // async function getMedia() {
-    //     const mediaList = await window.electronAPI.getMedia();
-    //     setMedias(mediaList); // Updates medias state with the result
-    // }
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    async function createPerson() {
+        const confirmed = window.confirm(`Create person: ${firstName} ${lastName}?`);
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            console.log('Creating person:', firstName, lastName);
+            await window.electronAPI.createPerson(firstName, lastName);
+            setFirstName('');
+            setLastName('');
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     useEffect(() => {
         // Log medias after the state is updated
@@ -119,6 +134,22 @@ function AddMedia() {
                         value={attributes.why}
                         onChange={handleAttributeChange}
                     />
+                </div>
+
+                <div>
+                    <input
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(event) => setFirstName(event.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(event) => setLastName(event.target.value)}
+                    />
+                    <button onClick={createPerson}>Create Person</button>
                 </div>
 
                 <button className="confirm-button" onClick={addMedia}>Confirm</button>
