@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './styles/addmedia.css';
 import AirDatepicker from 'air-datepicker';
 import 'air-datepicker/air-datepicker.css';
+import { Theme, useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 function AddMedia() {
     const [mediaCreationStatus, setMediaCreationStatus] = useState("Try to add Media!");
@@ -20,6 +26,7 @@ function AddMedia() {
         setMediaCreationStatus(failed ? "Failed to add media to DB :(" : "Successfully added media to DB!");
     }
 
+    // **START CREATE NEW PERSON**
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
@@ -39,12 +46,51 @@ function AddMedia() {
             console.error(error);
         }
     }
+    // **END CREATE NEW PERSON**
+
+    // **START DROPDOWN MENU**
+    const theme = useTheme();
+    const [personName, setPersonName] = useState([]);
+    const [people, setPeople] = useState([]);
+
+    const fetchPeople = async () => {
+        try {
+        const data = await window.electronAPI.getAllPeople();
+        setPeople(data);
+        } catch (error) {
+        console.error('Error fetching people:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchPeople();
+    }, []);
+
+    const handleChange = (event) => {
+        const {
+        target: { value },
+        } = event;
+        const selectedValues = typeof value === 'string' ? value.split(',') : value;
+        setPersonName(selectedValues);
+    };
+
+    function getStyles(id, personName, theme) {
+        return {
+        fontWeight:
+            personName.indexOf(id) !== -1
+            ? theme.typography.fontWeightMedium
+            : theme.typography.fontWeightRegular,
+        };
+    }
+
+    // **END DROPDOWN MENU**
 
     useEffect(() => {
         // Log medias after the state is updated
         console.log('Medias updated:', medias);
     }, [medias]);
 
+    // **START CALENDER DATE PICKER**
     useEffect(() => {
         new AirDatepicker('#when-input', {
             autoClose: true,
@@ -66,6 +112,7 @@ function AddMedia() {
             },
         });
     }, []);
+    // **END CALENDER DATE PICKER**
 
     const handleAttributeChange = (event) => {
         const { name, value } = event.target;
@@ -74,7 +121,6 @@ function AddMedia() {
             [name]: value,
         }));
     };
-
     return (
         <div className="add-media-container">
             <div className="left-panel">
