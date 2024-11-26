@@ -12,6 +12,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/addmedia" element={<AddMedia />} />
                 <Route path="/vine" element={<Vine />} />
+                <Route path="*" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );

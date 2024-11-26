@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import './styles/home.css';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 function Home() {
     const [showInputPage, setShowInputPage] = useState(false);
     const [newFamilyVineName, setNewFamilyVineName] = useState('');
+    const navigate = useNavigate(); // initialize navigate
 
     async function createFamilyVine(event) {
         try {
             await window.electronAPI.createFamilyVine(newFamilyVineName);
+            navigate('/vine');
         } catch (error) {
             console.error(error);
         }
@@ -16,6 +19,7 @@ function Home() {
     async function loadFamilyVine(event) {
         try {
             await window.electronAPI.loadFamilyVine();
+            navigate('/vine');
         } catch (error) {
             console.error(error);
         }
