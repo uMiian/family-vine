@@ -9,10 +9,6 @@ export default (sequelize) => {
     when: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-    },
-    filepath: {
-      type: DataTypes.STRING,
-      allowNull: false,
     }
   });
   return Media;
