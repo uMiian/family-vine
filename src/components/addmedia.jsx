@@ -7,6 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 
 
 function AddMedia() {
@@ -42,23 +43,28 @@ function AddMedia() {
             await window.electronAPI.createPerson(firstName, lastName);
             setFirstName('');
             setLastName('');
-        } catch (error) {
+        } 
+        catch (error) {
             console.error(error);
         }
     }
-    // **END CREATE NEW PERSON**
+    //**END CREATE NEW PERSON**
 
-    // **START DROPDOWN MENU**
+    //**START DROPDOWN MENU**
     const theme = useTheme();
     const [personName, setPersonName] = useState([]);
     const [people, setPeople] = useState([]);
 
     const fetchPeople = async () => {
         try {
-        const data = await window.electronAPI.getAllPeople();
-        setPeople(data);
+            const data = await window.electronAPI.getAllPeople();
+            const peopleList = data.map((person) => ({
+                id: person.id,
+                name: person.name,
+            }));
+            setPeople(peopleList);
         } catch (error) {
-        console.error('Error fetching people:', error);
+            console.error('Error fetching people:', error);
         }
     };
 
@@ -68,7 +74,7 @@ function AddMedia() {
 
     const handleChange = (event) => {
         const {
-        target: { value },
+            target: { value },
         } = event;
         const selectedValues = typeof value === 'string' ? value.split(',') : value;
         setPersonName(selectedValues);
@@ -78,12 +84,12 @@ function AddMedia() {
         return {
         fontWeight:
             personName.indexOf(id) !== -1
-            ? theme.typography.fontWeightMedium
-            : theme.typography.fontWeightRegular,
+                ? theme.typography.fontWeightMedium
+                : theme.typography.fontWeightRegular,
         };
     }
 
-    // **END DROPDOWN MENU**
+    //**END DROPDOWN MENU**
 
     useEffect(() => {
         // Log medias after the state is updated
@@ -139,17 +145,6 @@ function AddMedia() {
                 </div>
 
                 <div className="input-group">
-                    <label htmlFor="who-input">Who</label>
-                    <input
-                        type="text"
-                        id="who-input"
-                        name="who"
-                        value={attributes.who}
-                        onChange={handleAttributeChange}
-                    />
-                </div>
-
-                <div className="input-group">
                     <label htmlFor="when-input">When</label>
                     <input
                         type="text"
@@ -182,6 +177,44 @@ function AddMedia() {
                     />
                 </div>
 
+                <div className="input-group">
+                    <FormControl sx={{ m: 1, width: '100%' }}>
+                        <InputLabel id="dropdown-menu-label">Who</InputLabel>
+                        <Select
+                            labelId="dropdown-menu-label"
+                            id="dropdown-menu"
+                            multiple
+                            value={personName}
+                            onChange={handleChange}
+                            input={<OutlinedInput label="Who" />}
+                            renderValue={(selected) =>
+                                selected.map((id) => {
+                                    const person = people.find((p) => p.id === id);
+                                    return person ? person.name : '';
+                                }).join(', ')
+                            }
+                            MenuProps={{
+                                PaperProps: {
+                                    style: {
+                                        maxHeight: 48 * 4.5 + 8,
+                                        width: 250,
+                                    },
+                                },
+                            }}
+                        >
+                            {people.map((person) => (
+                                <MenuItem
+                                    key={person.id}
+                                    value={person.id}
+                                    style={getStyles(person.id, personName, theme)}
+                                >
+                                    {person.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
+                
                 <div>
                     <input
                         type="text"
