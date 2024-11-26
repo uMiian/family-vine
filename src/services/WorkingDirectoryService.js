@@ -1,5 +1,6 @@
 import * as fs from 'fs/promises';
 import { dialog } from 'electron';
+import path from 'path';
 
 let workingDirectory = null;
 
@@ -38,8 +39,12 @@ export async function getWorkingDirectory() {
   * @param {String} copyFileName - the new name of the copied file.
   */
 export async function saveFileToWorkingDirectory(fileToCopy, copyFileName) {
+  // Create destination filepath
+  const extname = path.extname(fileToCopy);
+  const dest = workingDirectory + '/' + copyFileName + "" + extname;
+  
+  // Copy the file to the current working directory
   try {
-    const dest = workingDirectory + '/' + copyFileName;
     await fs.copyFile(fileToCopy, dest);
     console.log('Copied', fileToCopy, 'to', dest);
   } catch (error) {
