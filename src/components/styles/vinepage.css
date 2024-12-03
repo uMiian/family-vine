@@ -1,0 +1,104 @@
+/* Main container styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Header section */
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 10px 20px;
+}
+
+.header img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333333;
+}
+
+/* Content container */
+.content {
+    padding: 20px;
+}
+
+/* List item rows */
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.list-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.list-item span {
+    font-size: 16px;
+    color: #333333;
+}
+
+.list-item span:last-child {
+    margin-left: auto;
+    color: #666666;
+    font-weight: bold;
+}
+
+/* Add Media button */
+.add-media-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.add-media-btn:hover {
+    background-color: #45a049;
+}
+
+/* Filter box */
+.filter-box {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 150px;
+    background-color: #4caf50;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.filter-box p {
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.filter-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.filter-box li {
+    margin-bottom: 5px;
+}
