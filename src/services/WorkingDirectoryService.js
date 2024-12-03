@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises';
 import { dialog } from 'electron';
 import path from 'path';
+import mime from 'mime-types';
 
 let workingDirectory = null;
 
@@ -54,9 +55,9 @@ export async function saveFileToWorkingDirectory(fileToCopy, copyFileName) {
 }
 
 /**
-  * Get the path to a media file from the user.
+  * Get the media file path to a media file from the user.
   */
-export async function getFilePath() {
+export async function getMediaFilePath() {
   try {
     // Prompt the user to select a file
     const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile']});
@@ -65,6 +66,30 @@ export async function getFilePath() {
     return filePath;
   } catch (error) {
     console.error('Error getting file location:', error);
+    throw error;
+  }
+}
+
+/** Get the base name of media file given the filepath to the file. 
+ */
+export async function getBaseMediaName(filepath) {
+  try {
+    return await path.basename(filepath);
+  } catch (error) {
+    console.error('Could not get base name from media file:', error);
+  }
+}
+
+/** Get the data path from a given media file
+ */
+export async function getMediaData(filepath) {
+  try {
+    const mimetype = mime.lookup(filepath) || 'application/octet-stream';
+    const fileBuffer = await fs.readFile(filepath);
+    const dataString = fileBuffer.toString('base64');
+    return `data:${mimetype};base64,${dataString}`
+  } catch (error) {
+    console.error('Could not create data path from file:', error);
     throw error;
   }
 }

@@ -18,7 +18,7 @@ export async function createLocation(locationName) {
     }
     
     // Create new person
-    const newLocation = await Location.create({ locationName });
+    const newLocation = await Location.create({ name: locationName });
     console.log("New location created succesfully:", newLocation.toJSON());
     return newLocation;
   } catch (error) {

@@ -69,6 +69,7 @@ export async function createNewDatabase(newDbPath) {
     
     sequelizeInstance.sync({ force: true});
     console.log("Created database at ", newDbPath)
+    console.log("Connected to database at ", dbPath)
   } catch (error) {
     console.error("Could not connect to database ", newDbPath, ": ", error);
   }

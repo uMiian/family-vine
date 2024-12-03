@@ -3,6 +3,7 @@ import { createFamilyVineHandlers } from './handlers/FamilyVineHandlers.js';
 import { createPersonHandlers } from './handlers/PersonHandlers.js';
 import { createLocationHandlers } from './handlers/LocationHandlers.js';
 import { createMediaHandlers } from './handlers/MediaHandlers.js';
+import { createWorkingDirectoryHandlers } from './handlers/WorkingDirectoryHandlers.js';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -35,7 +36,7 @@ app.whenReady().then(() => {
   createPersonHandlers();
   createLocationHandlers();
   createMediaHandlers();
-
+  createWorkingDirectoryHandlers();
   // Creat the new window!
   createWindow();
 
