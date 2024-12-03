@@ -112,3 +112,19 @@ html, body {
     font-family: sans-serif;
     line-height: 1.0;
 }
+
+.person-input {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #3a6d66;
+    outline: 0;
+    font-size: 1rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.person-input::placeholder {
+    color: #6fd3c5;
+}

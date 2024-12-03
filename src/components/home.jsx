@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './styles/home.css';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
     const [showInputPage, setShowInputPage] = useState(false);
@@ -31,7 +31,6 @@ function Home() {
                 <h2>Family Vines</h2>
             </div>
             <div className="main-content">
-                <img src="/images/logo.png" alt="Family Vine Logo" className="logo" />
                 <h1><span>Family Vine</span></h1>
                 <p className = "version">V 1.0.0</p>
                 {!showInputPage ? (

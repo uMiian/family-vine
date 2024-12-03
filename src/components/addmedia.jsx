@@ -215,16 +215,21 @@ function AddMedia() {
                     </FormControl>
                 </div>
                 
-                <div>
+                <div className="input-group">
                     <input
                         type="text"
                         placeholder="First Name"
+                        className="person-input"
                         value={firstName}
                         onChange={(event) => setFirstName(event.target.value)}
                     />
+                </div>
+
+                <div className="input-group">
                     <input
                         type="text"
                         placeholder="Last Name"
+                        className="person-input"
                         value={lastName}
                         onChange={(event) => setLastName(event.target.value)}
                     />
