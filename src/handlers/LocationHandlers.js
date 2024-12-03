@@ -5,6 +5,7 @@ export async function createLocationHandlers() {
   // Handle creating a new location
   ipcMain.handle('create-location', async (context, locationName) => {
     try {
+      console.log(locationName);
       return await createLocation(locationName);
     } catch (error) {
       throw error;
