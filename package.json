@@ -9,7 +9,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.6.0",
@@ -21,9 +21,17 @@
     "@electron-forge/plugin-fuses": "^7.6.0",
     "@electron-forge/plugin-webpack": "^7.6.0",
     "@electron/fuses": "^1.8.0",
+    "@eslint/js": "^9.17.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "css-loader": "^6.11.0",
     "electron": "33.2.1",
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.13.0",
     "node-loader": "^2.1.0",
     "style-loader": "^3.3.4"
   },
