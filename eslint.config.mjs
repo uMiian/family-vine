@@ -1,35 +1,17 @@
-import config from "eslint-config-standard";
-
+import js from "@eslint/js";
+import globals from 'globals';
+import importPlugin from 'eslint-plugin-import';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
     // Main process (Node.js)
     files: ["src/main/**/*.js"],
-    env: { node: true },
-    extends: ["eslint:recommended"],
-  },
-  {
-    // Renderer process (React in Browser)
-    files: ["src/renderer/**/*.{js,jsx}"],
-    env: { browser: true, node: false },
-    extends: [
-      "eslint:recommended",
-      "plugin:react/recommended", // Add React plugin
-    ],
-    plugins: ["react", "react-hooks"], // Include React plugins
-    parserOptions: {
-      ecmaVersion: 12,
+    ...js.configs.recommended,
+    ...importPlugin.flatConfigs.recommended,
+    languageOptions: {
       sourceType: "module",
-      ecmaFeatures: {
-        jsx: true, // Enable JSX parsing
-      },
-    },
-    rules: {
-      "react/react-in-jsx-scope": "off", // Disable if using React 17+ (no need to import React in scope for JSX)
-      "react/prop-types": "off", // Disable if you don't use PropTypes
-      "react-hooks/rules-of-hooks": "error", // Enforce hooks rules
-      "react-hooks/exhaustive-deps": "warn", // Warn about missing dependencies in useEffect
-    },
+      globals: { ...globals.node }
+    }
   },
 ];
