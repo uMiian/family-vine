@@ -13,5 +13,4 @@ export function definePerson(sequelize, DataTypes) {
       allowNull: true
     }
   })
-  return person;
 }

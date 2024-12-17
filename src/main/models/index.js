@@ -2,10 +2,11 @@ import { Sequelize, DataTypes } from 'sequelize';
 import { defineMedia }  from './media.js';
 import { definePerson } from './person.js';
 import { defineLocation }  from './location.js';
+import { defineRelationships } from './relationships.js';
 
-// Given a database filepath, load the model instances.
+// Given a database filepath, connect to a database, define the model instances and return them.
 // NOTE: If the connection does not exist, it will create a new sqlite db file.
-export async function loadModels(dbFilepath) {
+export async function connectToDb(dbFilepath) {
 
   // Connect to the database (or create it if it doesn't exist)
   const sequelizeInstance = new Sequelize({
@@ -20,14 +21,14 @@ export async function loadModels(dbFilepath) {
     throw Error('Unable to authenticate database connection:', error);
   }
 
-  // Define all of the models
-  const models = {
-    Media: defineMedia(sequelizeInstance, DataTypes),
-    Person: definePerson(sequelizeInstance, DataTypes),
-    Location: defineLocation(sequelizeInstance, DataTypes)
-  }
+  // Define the models
+  defineMedia(sequelizeInstance, DataTypes);
+  defineLocation(sequelizeInstance, DataTypes);
+  definePerson(sequelizeInstance, DataTypes);
+  
 
-  // TODO: Load the relationships between the models
+  // Define relationships between the models
+  defineRelationships(sequelizeInstance.models, DataTypes);
 
   // Sync the models with the database
   try {
@@ -36,7 +37,6 @@ export async function loadModels(dbFilepath) {
     throw Error('Could not synchronize models with database:', error);
   }
 
-  return models;
+  // Return the defined models
+  return sequelizeInstance.models;
 }
-
-loadModels("./example.db");

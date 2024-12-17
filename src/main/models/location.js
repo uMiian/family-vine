@@ -8,5 +8,4 @@ export function defineLocation(sequelize, DataTypes) {
       allowNull: false
     }
   })
-  return location;
 }

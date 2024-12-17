@@ -11,5 +11,4 @@ export function defineMedia(sequelize, DataTypes) {
       type: DataTypes.TEXT
     }
   })
-  return media;
 }
