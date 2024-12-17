@@ -1,5 +1,5 @@
-// Given a sequelize instance and DataTypes, initialize the location model
-export function createlocation(sequelize, DataTypes) {
+// Given a sequelize instance and DataTypes, define the location model
+export function defineLocation(sequelize, DataTypes) {
   const location = sequelize.define('Location', {
     // Define model attributes
     name: {
@@ -8,4 +8,5 @@ export function createlocation(sequelize, DataTypes) {
       allowNull: false
     }
   })
+  return location;
 }

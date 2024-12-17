@@ -1,6 +1,6 @@
-// Given a sequelize instance and DataTypes, initialize the media model
-export function createMedia(sequelize, DataTypes) {
-  const Media = sequelize.define('Media', {
+// Given a sequelize instance and DataTypes, define the media model
+export function defineMedia(sequelize, DataTypes) {
+  const media = sequelize.define('Media', {
     // Define model attributes
     filepath: {
       type: DataTypes.STRING,
@@ -11,4 +11,5 @@ export function createMedia(sequelize, DataTypes) {
       type: DataTypes.TEXT
     }
   })
+  return media;
 }

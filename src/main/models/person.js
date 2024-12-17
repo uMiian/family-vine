@@ -1,16 +1,17 @@
-// Given a sequelize instance and DataTypes, initialize the person model
-export function createPerson(sequelize, DataTypes) {
-  const Person = sequelize.define('Person', {
+// Given a sequelize instance and DataTypes, define the person model
+export function definePerson(sequelize, DataTypes) {
+  const person = sequelize.define('Person', {
     // Define model attributes
     firstName: {
-      DataTypes.STRING,
+      type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false
     },
     lastName: {
-      DataTypes.STRING,
+      type: DataTypes.STRING,
       primaryKey:true,
-      allowNull: true,
+      allowNull: true
     }
   })
+  return person;
 }
