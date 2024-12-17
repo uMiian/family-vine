@@ -4,7 +4,7 @@ import { definePerson } from './person.js';
 import { defineLocation }  from './location.js';
 import { defineRelationships } from './relationships.js';
 
-// Given a database filepath, connect to a database, define the model instances and return them.
+// Given a database filepath, connect to a database, define the models, and returnt the sequelize instance
 // NOTE: If the connection does not exist, it will create a new sqlite db file.
 export async function connectToDb(dbFilepath) {
 
@@ -38,5 +38,5 @@ export async function connectToDb(dbFilepath) {
   }
 
   // Return the defined models
-  return sequelizeInstance.models;
+  return sequelizeInstance;
 }
