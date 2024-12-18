@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import globals from 'globals';
 import importPlugin from 'eslint-plugin-import';
+import pluginJest from 'eslint-plugin-jest'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -13,5 +14,20 @@ export default [
       sourceType: "module",
       globals: { ...globals.node }
     }
+  },
+  {
+    // Jest Tests
+    files: ["tests/**/*.test.js"],
+    plugins: { jest: pluginJest },
+      languageOptions: {
+      globals: pluginJest.environments.globals.globals,
+    },
+    rules: {
+      'jest/no-disabled-tests': 'warn',
+      'jest/no-focused-tests': 'error',
+      'jest/no-identical-title': 'error',
+      'jest/prefer-to-have-length': 'warn',
+      'jest/valid-expect': 'error',
+    },
   },
 ];
