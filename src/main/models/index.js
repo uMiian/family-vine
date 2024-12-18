@@ -4,14 +4,20 @@ import { definePerson } from './person.js';
 import { defineLocation }  from './location.js';
 import { defineRelationships } from './relationships.js';
 
-// Given a database filepath, connect to a database, define the models, and returnt the sequelize instance
+// Check if we are in testing
+const isTest = process.env.NODE_ENV === 'test';
+
+// Given a database filepath, connect to a database, define the models, and return the sequelize instance
 // NOTE: If the connection does not exist, it will create a new sqlite db file.
-export async function connectToDb(dbFilepath) {
+export async function createDbInstance(dbFilepath) {
 
   // Connect to the database (or create it if it doesn't exist)
   const sequelizeInstance = new Sequelize({
     dialect: 'sqlite',
-    storage: dbFilepath
+    storage: dbFilepath,
+
+    // If we are testing, disable logging
+    logging: isTest ? false : console.log,
   })
 
   // Make sure the connection is ok
@@ -32,7 +38,7 @@ export async function connectToDb(dbFilepath) {
 
   // Sync the models with the database
   try {
-    await sequelizeInstance.sync({ alter: true })
+    await sequelizeInstance.sync();
   } catch (error) {
     throw Error('Could not synchronize models with database:', error);
   }
