@@ -2,10 +2,22 @@
 export function defineLocation(sequelize, DataTypes) {
   const location = sequelize.define('Location', {
     // Define model attributes
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: DataTypes.STRING,
-      primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      uniqe: true,
     }
+  }, {
+    // Create a unique index on location name
+    indexes: [
+      {
+        unique: true,
+        fields: ['name'],
+      }]
   })
 }

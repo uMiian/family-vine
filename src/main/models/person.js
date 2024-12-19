@@ -2,15 +2,22 @@
 export function definePerson(sequelize, DataTypes) {
   const person = sequelize.define('Person', {
     // Define model attributes
-    firstName: {
-      type: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true,
     },
-    lastName: {
+    name: {
       type: DataTypes.STRING,
-      primaryKey:true,
-      allowNull: true
+      unique: true,
+      allowNull: false,
     }
+  }, {
+    // Create a unique index on location name
+    indexes: [
+      {
+        unique: true,
+        fields: ['name'],
+      }]
   })
 }
