@@ -11,7 +11,7 @@ export async function connectToDb(dbFilepath) {
   try {
     await fs.access(dbFilepath);
   } catch (error) {
-    throw new Error(`Could not find database at ${dbFilepath}:`, error);
+    throw new Error(`Could not find database at ${dbFilepath}: ${error}`);
   }
 
   // Try to connect to db
@@ -20,7 +20,7 @@ export async function connectToDb(dbFilepath) {
     currentDbFilepath = dbFilepath;
   } catch (error) {
     console.log(error);
-    throw new Error(`Could not connect to database at ${dbFilepath}:`, error);
+    throw new Error(`Could not connect to database at ${dbFilepath}: ${error}`);
   }
 }
 
@@ -44,7 +44,7 @@ export async function createAndConnectToDb(dbFilepath) {
     dbInstance = await createDbInstance(dbFilepath);
     currentDbFilepath = dbFilepath;
   } catch (error) {
-    throw new Error(`Could not create and connect to database at ${dbFilepath}:`, error);
+    throw new Error(`Could not create and connect to database at ${dbFilepath}: ${error}`);
   }
 }
 
@@ -58,7 +58,7 @@ export async function disconnectFromDb() {
   try {
     await dbInstance.close();
   } catch (error) {
-    throw new Error('There was a problem closing the database connection:', error);
+    throw new Error(`There was a problem closing the database connection: ${error}`);
   }
   
   // Set db instance to null
@@ -73,7 +73,7 @@ export async function deleteDb(dbFilepath) {
   try {
     await fs.access(dbFilepath);
   } catch (error) {
-    throw new Error(`Could not find database ${dbFilepath}:`, error);
+    throw new Error(`Could not find database ${dbFilepath}: ${error}`);
   }
 
   // Ensure that the db to be deleted is the current connection
@@ -85,7 +85,7 @@ export async function deleteDb(dbFilepath) {
   try {
     await fs.rm(dbFilepath);
   } catch(error) {
-    throw new Error(`Could not delete database at ${dbFilepath}`, error);
+    throw new Error(`Could not delete database at ${dbFilepath}: ${error}`);
   }
 }
 
