@@ -37,7 +37,8 @@
     "eslint-plugin-standard": "^4.1.0",
     "globals": "^15.13.0",
     "node-loader": "^2.1.0",
-    "style-loader": "^3.3.4"
+    "style-loader": "^3.3.4",
+    "jest": "^29.7.0"
   },
   "keywords": [],
   "author": {
@@ -47,7 +48,6 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "jest": "^29.7.0",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"
   }
