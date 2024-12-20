@@ -1,7 +1,8 @@
 import js from "@eslint/js";
 import globals from 'globals';
 import importPlugin from 'eslint-plugin-import';
-import pluginJest from 'eslint-plugin-jest'
+import pluginJest from 'eslint-plugin-jest';
+import pluginReact from '@eslint-react/eslint-plugin';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -14,6 +15,18 @@ export default [
       sourceType: "module",
       globals: { ...globals.node }
     }
+  },
+  {
+    // Renderer process (Broswer)
+    files: ["src/renderer/**/*.{jsx, js}"],
+    ...pluginReact.configs["react"],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
   },
   {
     // Jest Tests
