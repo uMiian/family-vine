@@ -90,3 +90,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# Jest code coverage report
+coverage/
