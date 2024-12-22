@@ -11,8 +11,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint .",
-    "test": "NODE_ENV=test jest --verbose",
-    "test coverage": "NODE_ENV=test jest --verbose --coverage"
+    "test": "NODE_ENV=test jest --verbose --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
