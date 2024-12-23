@@ -1,3 +1,5 @@
+import './reset.css';
+import './App.css';
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router';
