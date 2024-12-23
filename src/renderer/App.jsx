@@ -1,13 +1,13 @@
-import './reset.css';
-import './App.css';
+import '@styles/reset.css';
+import '@styles/App.css';
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router';
 import { Link } from 'react-router'; // TODO: Get rid of me after testing
-import VineSelection from './pages/VineSelection.jsx';
-import VineTraversal from './pages/VineTraversal.jsx';
-import MediaCreation from './pages/MediaCreation.jsx';
-import MediaPreview from './pages/MediaPreview.jsx';
+import VineSelection from '@pages/VineSelection.jsx';
+import VineTraversal from '@pages/VineTraversal.jsx';
+import MediaCreation from '@pages/MediaCreation.jsx';
+import MediaPreview from '@pages/MediaPreview.jsx';
 
 export default function App() {
   return (
