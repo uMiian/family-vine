@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   /**
    * This is the main entry point for your application, it's the first file
@@ -7,5 +8,14 @@ module.exports = {
   // Put your normal webpack config below here
   module: {
     rules: require('./webpack.rules'),
+  },
+  // Aliases
+  resolve: {
+    alias: {
+      '@main': path.resolve(__dirname, 'src/main'),
+      '@models': path.resolve(__dirname, 'src/main/models'),
+      '@services': path.resolve(__dirname, 'src/main/services'),
+      '@handlers': path.resolve(__dirname, 'src/main/handlers'),
+    },
   },
 };

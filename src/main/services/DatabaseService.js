@@ -19,7 +19,6 @@ export async function connectToDb(dbFilepath) {
     dbInstance = await createDbInstance(dbFilepath);
     currentDbFilepath = dbFilepath;
   } catch (error) {
-    console.log(error);
     throw new Error(`Could not connect to database at ${dbFilepath}: ${error}`);
   }
 }

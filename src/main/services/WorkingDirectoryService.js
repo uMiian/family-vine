@@ -28,7 +28,7 @@ export async function createWorkingDirectory(folderpath) {
   workingDirectory = folderpath;
 }
 
-export async function removeWorkingDirectory(folderpath) {
+export async function removeDirectory(folderpath) {
   // Make sure that the file to be removed is not the current working directory
   if (folderpath.replace(/\/$/, '') === workingDirectory) {
     throw new Error('Cannot remove current working directory');
@@ -65,6 +65,10 @@ export async function setWorkingDirectory(folderpath) {
 
 // Set the working directory to null (or nothing)
 export async function setNoWorkingDirectory() {
+  // Throw error if no working directory is already set
+  if (!workingDirectory) {
+    throw new Error('There is no set working directory');
+  }
   workingDirectory = null;
 }
 
