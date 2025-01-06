@@ -11,7 +11,6 @@ import MediaPreview from '@pages/MediaPreview.jsx';
 
 export default function App() {
   return (
-    <div>
       <HashRouter>
         <div>
           <Link to='/'>Vine Selection</Link>
@@ -29,6 +28,5 @@ export default function App() {
           <Route path="/media/preview" element={<MediaPreview />} />
         </Routes>
       </HashRouter>
-    </div>
   )
 }

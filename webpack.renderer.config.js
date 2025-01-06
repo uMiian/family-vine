@@ -1,9 +1,16 @@
 const rules = require('./webpack.rules');
 const path = require('path');
 
+// Rules for CSS files
 rules.push({
   test: /\.css$/,
   use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+});
+
+// Rules for SVG files
+rules.push({
+  test: /\.svg$/,
+  use: ['@svgr/webpack']
 });
 
 module.exports = {
