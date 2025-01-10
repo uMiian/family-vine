@@ -2,13 +2,12 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import Sidebar from '@components/Sidebar.jsx';
+import PrimarySidebar from '@components/sidebar/PrimarySidebar.jsx';
 import PrimaryButton from '@components/button/PrimaryButton.jsx';
 import BackButton from '@components/button/BackButton.jsx';
 import PrimaryInput from '@components/input/PrimaryInput.jsx';
 
 import '@styles/VineSelection.css';
-import '@styles/Sidebar.css';
 
 export default function VineSelection() {
   let navigate = useNavigate();
@@ -93,7 +92,7 @@ export default function VineSelection() {
   return (
     <div className='vine-selection'>
 
-      <Sidebar className='primary-sidebar' title='Recent Vines'>
+      <PrimarySidebar title='Recent Vines'>
         <ol> {recentVines.map((vine) => (
             <li key={vine.key} onClick={handleLoadRecentVine}>
               <h4>{vine.name}</h4>
@@ -101,7 +100,7 @@ export default function VineSelection() {
             </li>
           ))}
         </ol>
-      </Sidebar>
+      </PrimarySidebar>
 
       <div className='main'>
         <h1>Family Vine</h1>

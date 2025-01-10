@@ -3,7 +3,8 @@
   min-height: 100%;
 
   display: flex;
-  justify-content: space-between; gap: 5px; }
+  justify-content: space-between; gap: 5px; 
+}
 
 .main {
   background-color: var(--color-primary);
@@ -15,7 +16,7 @@
   align-items: center;
 }
 
-.main h1, h3 {
+.main h1, .main h3 {
   color: white;
   font-weight: bold; 
 }
