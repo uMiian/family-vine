@@ -24,7 +24,7 @@ const theme = createTheme({
       main: "#1f7651", // Green
     },
     secondary: {
-      main: '#53a57d', // Light Green
+      main: '#b6ffde', // Light Green
     },
   }
 })
@@ -54,9 +54,9 @@ export default function App() {
         />
         <HashRouter>
           <Routes>
-            <Route path="/" element={<VineSelection />} />
+            <Route path="/selection" element={<VineSelection />} />
             <Route path="/traversal" element={<VineTraversal />} />
-            <Route path="/media/creation" element={<MediaCreation />} />
+            <Route path="/" element={<MediaCreation />} />
             <Route path="/media/preview" element={<MediaPreview />} />
           </Routes>
         </HashRouter>
