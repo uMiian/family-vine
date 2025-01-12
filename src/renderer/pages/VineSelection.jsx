@@ -1,170 +1,345 @@
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import PrimarySidebar from '@components/sidebar/PrimarySidebar.jsx';
-import PrimaryButton from '@components/button/PrimaryButton.jsx';
-import BackButton from '@components/button/BackButton.jsx';
-import PrimaryInput from '@components/input/PrimaryInput.jsx';
+import { styled } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
-import '@styles/VineSelection.css';
+import Drawer from '@mui/material/Drawer';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import Typography from '@mui/material/Typography';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
-export default function VineSelection() {
+const drawerWidth = 240;
+
+/* Custom Components */
+const WhiteButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  backgroundColor: 'white',
+  '&:hover': {
+    backgroundColor: grey[200],
+  },
+}));
+
+const WhiteTextField = styled(TextField)(({ theme }) => ({
+  input: { color: 'white'},
+  label: { color: 'white'},
+  '& .MuiInputLabel-root.Mui-focused': {
+    color: 'white', // Label color when focused
+  },
+  '.MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'white', // Default border color
+    },
+    '&:hover fieldset': {
+      borderColor: 'white', // Hover border color
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'white', // Focused border color
+    },
+  },
+}));
+
+
+export default function VineSelectionMaterialUI() {
   let navigate = useNavigate();
 
   /* STATE */
   const [isCreatingVine, setIsCreatingVine] = useState(false);
-  const [newVineName, setNewVineName] = useState('');
+
+  const [newVineFormError, setNewVineFormError] = useState(false);
+  const [newVineFormErrorMessage, setNewVineFormErrorMessage] = useState('');
+  const [newVineName, setNewVineName ] = useState('');
   const [newVineDirectory, setNewVineDirectory] = useState('');
 
 
   // TODO: Replace with fetch function to get recently visited vines
-  const recentVines = [
-    {
-      "key": 1,
-      "name": 'Family Vine 1', 
-      "path": 'path/to/vine1',
-    },
-    {
-      "key": 2,
-      "name": 'Family Vine 2', 
-      "path": 'path/to/vine2',
-    },
-    {
-      "key": 3,
-      "name": 'Family Vine 3', 
-      "path": 'path/to/vine3',
-    },
-  ];
-
-  /* HANDLE FUNCTIONS */
-  async function handleCreateVine() {
-    // Show the form for creating a vine
-    setIsCreatingVine(true);
+  const recentVines = []
+  for (let i = 0; i < 21; i++) {
+    recentVines.push({
+      "key": i,
+      "name": `Family Vine ${i}`, 
+      "path": `path/to/vine${i}`,
+    });
   }
 
-  async function handleChooseNewVineDirectory() {
-    // Prompt the user for the new directory
+  /* HANDLERS */
+  async function handleRecentVineClick(event, recentVine) {
+    // Get the path to the vine
+    console.log(recentVine.path);
 
-    // Set the new directory
-    setNewVineDirectory('new/vine/directory');
-  }
+    // TODO: Try to load the vine
 
-  async function handleCreateVineForm(event) {
-    // Show the creation form
-  
-    // Get the vine name and where to make the folder
-    
-    // Try to create the folder
-    
     // Redirect to vine traversal
     navigate('/traversal');
+  }
+
+  async function handleLoadVineButtonClick(event) {
+    // TODO: Let the user choose a family vine directory
+    const familyVineDirectory = 'path/to/vine/directory';
+
+    // TODO: Try to load the family vine
+
+    // Redirect to vine traversal
+    navigate('/traversal');
+  }
+
+  async function handleCreateVineButtonClick(event) {
+    // Show the create vine form
+    setIsCreatingVine(true); 
   }
 
   async function handleBackButtonClick(event) {
-    event.preventDefault();
-    // Set form fields to be blank
-    setNewVineName('');
-    setNewVineDirectory('');
-
-    // Go back to create/load screen
+    // Go back to Create/Load Vine options
     setIsCreatingVine(false);
   }
 
-  async function handleLoadVine() {
-    // Prompt the user for a family vine folder
-    
-    // Try to load the folder
-    
-    // Redirect to vine traversal
+  async function handleSubmitCreateVineFormButtonClick(event) {
+    // Make sure new vine name and directory are specified
+    if (!newVineName) {
+      setNewVineFormError(true);
+      setNewVineFormErrorMessage('Make sure to give your vine a name!')
+      return; } if (!newVineDirectory) {
+      setNewVineFormError(true);
+      setNewVineFormErrorMessage('Make sure to specify where to make the new vine folder!');
+      return;
+    }
+
+    // Try creating the new family vine
+  
+    // Navigate to vine traversal
     navigate('/traversal');
   }
 
-  async function handleLoadRecentVine(event) {
-    // Get the path to the vine
-
-    // Try to load the vine
-
-    // Redirect to vine traversal
-    navigate('/traversal');
+  async function handleChooseNewVineDirectoryButtonClick(event) {
+    // Let the user select a directory to make the vine in
+    setNewVineDirectory('path/to/directory');
   }
 
   return (
-    <div className='vine-selection'>
+    <Box
+      sx={{ 
+        display: "flex",
+        height: "100vh",
+        backgroundColor: "primary.main",
+      }}
+    >
+      {/* Recent Vines Sidebar */}
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Typography color='primary' variant="h5" align="center">
+          Recent Vines 
+        </Typography>
 
-      <PrimarySidebar title='Recent Vines'>
-        <ol> {recentVines.map((vine) => (
-            <li key={vine.key} onClick={handleLoadRecentVine}>
-              <h4>{vine.name}</h4>
-              <p>{vine.path}</p>
-            </li>
-          ))}
-        </ol>
-      </PrimarySidebar>
-
-      <div className='main'>
-        <h1>Family Vine</h1>
-        <p>Version 0.0.0</p>
-
-        {isCreatingVine ? (
-          <form className='creation-form'>
-            <div className='selection'>
-              <div>
-                <h3>Name of Vine</h3>
-                <p>Enter the name of your family vine</p>
-              </div>
-              <PrimaryInput value={newVineName} placeholder='Vine Name'
-                onChange={(event) => setNewVineName(event.target.value)}
+        {/* List the recently visited vines */}
+        <List>
+        {recentVines.map((recentVine) => (
+          <ListItem key={recentVine.key} disablePadding>
+            <ListItemButton 
+                onClick={(event) => handleRecentVineClick(event, recentVine)}
+            >
+              <ListItemText
+                primary={
+                  <Typography color="primary" variant="h6">
+                    {recentVine.name}
+                  </Typography>
+                }
+                secondary={
+                  <Typography color="secondary" sx={{ fontWeight: "light"}}>
+                    {recentVine.path}
+                  </Typography>
+                }
               />
-            </div>
-            <hr />
-            <div className='selection'>
-              <div>
-                <h3>Choose Directory</h3>
-                <p>Choose a directory to create the family vine folder in</p>
-              </div>
-              <PrimaryButton className='primary-button' 
-                             onClick={handleChooseNewVineDirectory}>
-              {!newVineDirectory ? 
-                <text>Choose</text> :
-                <text>{newVineDirectory}</text> }
-              </PrimaryButton>
-            </div>
-            <div className='creation-form-footer'>
-              <BackButton onClick={handleBackButtonClick} />
-              <PrimaryButton className='submit-button' type='submit'
-                             onClick={handleCreateVineForm}
-                             disabled={!newVineName || !newVineDirectory}>
-               Submit 
-              </PrimaryButton>
-            </div>
-          </form>
-        ) : (
-        <div className='selections'>
-          <div className='selection'>
-            <div>
-              <h3>Create Vine</h3>
-              <p>Create a family vine folder in a folder</p>
-            </div>
-            <PrimaryButton className='primary-button' onClick={handleCreateVine}>
-              Create
-            </PrimaryButton>
-          </div>
-          <hr/>
+            </ListItemButton>
+          </ListItem>
+        ))}
+        </List>
+      </Drawer>
 
-          <div className='selection'>
-            <div>
-              <h3>Load Vine</h3>
-              <p>Load a family vine folder</p>
-            </div>
-            <PrimaryButton className='primary-button' onClick={handleLoadVine}>
-              Load
-            </PrimaryButton>
-          </div>
-          <hr/>
-        </div>
+      {/* Main */}
+      <Stack
+        direction="column"
+        spacing={4}
+        sx={{ 
+          flexGrow: 1,
+          justifyContent: "center", 
+          alignItems: "center",
+        }}
+      >
+        <Typography color="white" variant="h2">Family Vine</Typography>
+
+        {/* Load/Create a Family Vine */}
+        <Stack spacing={2}
+          sx={{
+            width: 360,
+            height: 150,
+          }}
+        >
+        {!isCreatingVine ? (
+          <Stack spacing={2}>
+            <Stack direction="row" spacing={2}
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack>
+                <Typography color="white" variant="h6">
+                  Create Vine
+                </Typography>
+                <Typography color="white" variant="body2">
+                  Create a new Family Vine under a folder.
+                </Typography>
+              </Stack>
+              <WhiteButton 
+                onClick={handleCreateVineButtonClick}
+                sx={{
+                  width: 25,
+                  px: 5,
+                }}
+              >
+                Create
+              </WhiteButton>
+            </Stack>
+
+            <Stack direction="row" spacing={2}
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack>
+                <Typography color="white" variant="h6">
+                  Load Vine
+                </Typography>
+                <Typography color="white" variant="body2">
+                  Load a family vine folder.
+                </Typography>
+              </Stack>
+              <WhiteButton
+                onClick={handleLoadVineButtonClick}
+                sx={{
+                  width: 25,
+                  px: 5,
+                }}
+              >
+                Load
+              </WhiteButton>
+            </Stack>
+          </Stack>
+        ) : (
+          <Stack spacing={2}>
+            <Stack>
+              <Stack direction="row" spacing={2}
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Stack>
+                  <Typography color="white" variant="h6" flexGrow>
+                    Name Your Vine
+                  </Typography>
+                  <Typography color="white" variant="body2" flexGrow>
+                    This is also the folder name.
+                  </Typography>
+                </Stack>
+                <WhiteTextField 
+                  value={newVineName}
+                  onChange={(e) => setNewVineName(e.target.value)}
+                  required
+                  label="Vine Name"
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    width: 150,
+                  }}
+                />
+              </Stack>
+            </Stack>
+            <Stack direction="row" spacing={2}
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Stack>
+                <Typography color="white" variant="h6">
+                  Choose a Folder
+                </Typography>
+                <Typography color="white" variant="body2">
+                  {newVineDirectory ? (
+                    newVineDirectory
+                  ) : (
+                      <>Please choose a folder</>
+                  )}
+                </Typography>
+              </Stack>
+            <WhiteButton
+              onClick={handleChooseNewVineDirectoryButtonClick}
+            >
+              Choose
+            </WhiteButton>
+            </Stack>
+            <Stack direction="row">
+              <IconButton onClick={handleBackButtonClick}>
+                <ArrowBackIcon 
+                  sx={{
+                    color: "white",
+                  }}
+                />
+              </IconButton>
+              <WhiteButton 
+                fullWidth
+                onClick={handleSubmitCreateVineFormButtonClick}
+              >
+                Submit
+              </WhiteButton>
+            </Stack>
+          </Stack>
         )}
-      </div>
-    </div>
+        </Stack>
+        
+        {/* Snackbar Alert */}
+        <Snackbar 
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          open={newVineFormError} 
+          autoHideDuration={6000} 
+        >
+          <Alert
+            severity="error"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            {newVineFormErrorMessage}
+          </Alert>
+        </Snackbar>
+      </Stack>
+    </Box>
   )
 }

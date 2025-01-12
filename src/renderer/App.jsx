@@ -8,7 +8,6 @@ import { Global, css } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import VineSelection from '@pages/VineSelection.jsx';
-import VineSelectionMaterialUI from '@pages/VineSelectionMaterialUI.jsx';
 import VineTraversal from '@pages/VineTraversal.jsx';
 import MediaCreation from '@pages/MediaCreation.jsx';
 import MediaPreview from '@pages/MediaPreview.jsx';
@@ -27,9 +26,6 @@ const theme = createTheme({
     secondary: {
       main: '#53a57d', // Light Green
     },
-    white: {
-      main: "#ffffff"
-    }
   }
 })
 
@@ -58,7 +54,7 @@ export default function App() {
         />
         <HashRouter>
           <Routes>
-            <Route path="/" element={<VineSelectionMaterialUI />} />
+            <Route path="/" element={<VineSelection />} />
             <Route path="/traversal" element={<VineTraversal />} />
             <Route path="/media/creation" element={<MediaCreation />} />
             <Route path="/media/preview" element={<MediaPreview />} />
