@@ -10,7 +10,6 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
-import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
@@ -25,36 +24,10 @@ import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
+import WhiteButton from '@components/WhiteButton.jsx';
+import WhiteTextField from '@components/WhiteTextField.jsx';
+
 const drawerWidth = 240;
-
-/* Custom Components */
-const WhiteButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.primary.main,
-  backgroundColor: 'white',
-  '&:hover': {
-    backgroundColor: grey[200],
-  },
-}));
-
-const WhiteTextField = styled(TextField)(({ theme }) => ({
-  input: { color: 'white'},
-  label: { color: 'white'},
-  '& .MuiInputLabel-root.Mui-focused': {
-    color: 'white', // Label color when focused
-  },
-  '.MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'white', // Default border color
-    },
-    '&:hover fieldset': {
-      borderColor: 'white', // Hover border color
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: 'white', // Focused border color
-    },
-  },
-}));
-
 
 export default function VineSelectionMaterialUI() {
   let navigate = useNavigate();

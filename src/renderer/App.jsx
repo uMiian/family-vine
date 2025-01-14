@@ -7,6 +7,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Global, css } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 import VineSelection from '@pages/VineSelection.jsx';
 import VineTraversal from '@pages/VineTraversal.jsx';
 import MediaCreation from '@pages/MediaCreation.jsx';
@@ -31,6 +34,7 @@ const theme = createTheme({
 
 export default function App() {
   return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider theme={theme}>
         {/* Reset browser CSS setttings */}
         <CssBaseline />
@@ -61,5 +65,6 @@ export default function App() {
           </Routes>
         </HashRouter>
       </ThemeProvider>
+    </LocalizationProvider>
   )
 }
