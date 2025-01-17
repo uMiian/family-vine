@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
@@ -23,12 +23,17 @@ const drawerWidth = 320;
 export default function MediaCreation() {
   /* STATE */
   const [mediaFilepath, setMediaFilepath] = useState('');
+  const [peopleInMedia, setPeopleInMedia] = useState([]);
+  const [peopleWhoCapturedMedia, setPeopleWhoCapturedMedia] = useState([]);
+  const [whenMediaCaptured, setWhenMediaCaptured] = useState();
+  const [whereMediaCaptured, setWhereMediaCaptured] = useState();
+  const [mediaDescription, setMediaDescription] = useState('');
 
   // TODO: Get All People, locations, etc.
   const people = []
   for (var i = 0; i < 5; i++) {
     people.push({
-      key: i + 1,
+      id: i + 1,
       name: `person${i+1}`,
     })
   }
@@ -45,6 +50,10 @@ export default function MediaCreation() {
   async function handleChooseMediaButtonClick(event) {
     // TODO: Get a media file from the user
     setMediaFilepath('path/to/media');
+  }
+
+  async function handleCreateButtonClick(event) {
+    console.log(peopleInMedia);
   }
 
   return (
@@ -92,7 +101,7 @@ export default function MediaCreation() {
             }}
           >
             {!mediaFilepath ? 
-              'choose media' :
+              'choose media*' :
               mediaFilepath
             }
           </WhiteButton>
@@ -107,9 +116,43 @@ export default function MediaCreation() {
               size="small"
               multiple
               limitTags={1}
-              options={people}
-              getOptionLabel={(option) => option.name}
               popupIcon=<ArrowDropDownIcon color="secondary" />
+              freeSolo
+              options={people}
+              filterOptions={(options, params) => {
+                const filtered = createFilterOptions(options, params);
+
+                const { inputValue } = params;
+
+                // Suggest the creation of a new value
+                const isExisting = options.some((option) => inputValue === option.name);
+                if (inputValue !== '' && !isExisting) {
+                  filtered.push({
+                    inputValue,
+                    title: `Add "${inputValue}"`,
+                  });
+                }
+              }}
+              getOptionLabel={(option) => {
+                // Value selected with enter, right from the input
+                if (typeof option === 'string') {
+                  return option;
+                }
+                // Add "xxx" option created dynamically
+                if (option.inputValue) {
+                  return option.inputValue;
+                }
+                // Regular option
+                return option.name;
+              }}
+              onChange={(event, newValue, reason) => {
+                if (reason === "createOption") {
+                  // TODO: Add the new person to the database
+                  console.log("Person added to database");
+                }
+                setPeopleInMedia(newValue);
+              }}
+              
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
                   const { key, ...tagProps } = getTagProps({ index });
@@ -203,8 +246,6 @@ export default function MediaCreation() {
             </Typography>
             <Autocomplete 
               size="small"
-              multiple
-              limitTags={1}
               options={locations}
               getOptionLabel={(option) => option.name}
               popupIcon=<ArrowDropDownIcon color="secondary" />
@@ -240,11 +281,19 @@ export default function MediaCreation() {
             <Typography color="white" variant="h6" flexGrow>
               Description of the Media
             </Typography>
-            <WhiteTextField multiline />
+            <WhiteTextField 
+              multiline
+              rows={6}
+              InputProps={{
+                style: {
+                  overflow: "auto",
+                }
+              }}
+            />
           </Stack>
         
           {/* Create Button */}
-          <WhiteButton>Create</WhiteButton>
+          <WhiteButton onClick={handleCreateButtonClick}>Create</WhiteButton>
         </Stack>
       </Drawer>
     </Box>
