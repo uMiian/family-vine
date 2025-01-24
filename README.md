@@ -10,7 +10,7 @@ Family Vine is a media manager with an added empahsis on maintaing your family s
 
 * Electron 
 * React 
-* SqLite3 (TODO: We can change this lol)
+* SqLite3 
 
 ### Prerequisites
 
@@ -30,3 +30,20 @@ Now, simply run the application with the following command:
 ```{bash}
 npm run start
 ```
+
+### Roles
+
+* Manager: Luis G
+* Quality Assurance: John C
+* Sprint Masters: Samuel L, Katherine L, Umar mian
+
+### ToDo
+
+
+[ ] Read code
+[ ] Find current bugs
+[ ] Fix Bugs
+[ ] Create More documentation
+[ ] Create new UI
+[ ] Optimize Data Base
+[ ] Create multiple user 
