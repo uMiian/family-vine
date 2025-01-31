@@ -15,5 +15,12 @@ export function defineMedia(sequelize, DataTypes) {
     fileType: {
       type: DataTypes.TEXT,
     }
+  }, {
+    // Create a unique index on location name
+    indexes: [
+      {
+        unique: false,
+        fields: ['fileType'],
+      }]
   })
 }
