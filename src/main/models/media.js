@@ -16,7 +16,7 @@ export function defineMedia(sequelize, DataTypes) {
       type: DataTypes.TEXT,
     }
   }, {
-    // Create a unique index on location name
+    // Create a unique index on media file type
     indexes: [
       {
         unique: false,
