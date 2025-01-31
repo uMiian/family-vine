@@ -7,12 +7,12 @@ export function defineMedia(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true,
     },
-    filepath: {
+    filePath: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    description: {
+    fileType: {
       type: DataTypes.TEXT,
     }
   })
