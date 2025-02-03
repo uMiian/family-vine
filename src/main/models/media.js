@@ -32,7 +32,7 @@ export function defineMedia(sequelize, DataTypes) {
     indexes: [
       {
         unique: false,
-        fields: ['fileType'],
+        fields: ['fileType', 'location'],
       }]
   })
 }
