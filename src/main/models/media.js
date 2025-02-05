@@ -12,6 +12,10 @@ export function defineMedia(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
+    date: {
+      type: DataTypes.date,
+      allowNull: false
+    },
     location: {
       type: DataTypes.STRING,
       allowNull: true,
