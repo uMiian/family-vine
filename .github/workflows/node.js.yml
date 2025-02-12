@@ -29,15 +29,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Force remove node_modules (Windows)
-      if: runner.os == 'Windows'
+    - name: install dependencies
       shell: bash
-      run: |
-       rm -rf node_modules package-lock.json || echo "Files do not exist"
-
-    - name: clean install dependencies
-      shell: bash
-      run: npm ci
+      run: npm install
       
     - name: run tests
       run: npm test
