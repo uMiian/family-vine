@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest]
         node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -29,8 +29,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: install dependencies
-      run: npm install
+    - name: clean install dependencies
+      run: npm ci
       
     - name: run tests
       run: npm test
