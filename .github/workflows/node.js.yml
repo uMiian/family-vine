@@ -32,9 +32,9 @@ jobs:
 
     - name: Force remove node_modules (Windows)
       if: runner.os == 'Windows'
+      shell: bash
       run: |
-       rmdir /s /q node_modules || echo "node_modules does not exist"
-       del package-lock.json || echo "package-lock.json does not exist"
+       rm -rf node_modules package-lock.json || echo "Files do not exist"
 
     - name: clean install dependencies
       shell: bash
