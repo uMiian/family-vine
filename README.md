@@ -30,3 +30,17 @@ Now, simply run the application with the following command:
 ```{bash}
 npm run start
 ```
+### Testing
+
+After completing installation you can run the tests
+
+Run the following command to run the tests specified in the jest.config.mjs file
+```{bash}
+npm test
+```
+
+You can run individual tests by specifying their file path using node for example:
+```{bash}
+node tests/unit/main/models/media.mjs
+```
+but since our tests use the jest configs like '@models/media.js' node doesn't recognize the package so need to fix this.

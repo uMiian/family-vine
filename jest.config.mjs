@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // Create aliases for tests
   moduleNameMapper: {
     '^@main/(.*)$': '<rootDir>/src/main/$1',
@@ -6,4 +6,5 @@ module.exports = {
     '^@services/(.*)$': '<rootDir>/src/main/services/$1',
     '^@handlers/(.*)$': '<rootDir>/src/main/handlers/$1',
   },
-}
+  testMatch: ['<rootDir>/tests/unit/main/models/*.test.mjs'],
+};

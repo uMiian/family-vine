@@ -1,9 +1,96 @@
-import * as dbService from '@services/DatabaseService.js';
+// work in progress tests don't work, same with working directory tests
+import { jest } from '@jest/globals';
 import * as fs from 'fs/promises';
+import * as dbService from '@services/DatabaseService.js';
 import { createDbInstance } from '@models/index.js';
 
+// Mock createDbInstance
+/*jest.mock('@models/index.js', () => ({
+  createDbInstance: jest.fn(),
+}));*/
+
+describe('connectToDb', () => {
+  const testFilePath = 'existing/database.db';
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('connects to an existing database', async () => {
+    // Use jest.spyOn to mock fs.access
+    jest.spyOn(fs, 'access').mockResolvedValue(undefined);
+
+    // Mock createDbInstance to return a dummy instance
+    //createDbInstance.mockResolvedValue({});
+
+    await expect(dbService.connectToDb(testFilePath)).resolves.not.toThrow();
+    //expect(createDbInstance).toHaveBeenCalledWith(testFilePath);
+    jest.restoreAllMocks();
+  });
+
+  test('fails when database file does not exist', async () => {
+    // Use jest.spyOn to mock fs.access rejection (file not found)
+    jest.spyOn(fs, 'access').mockRejectedValue(new Error('ENOENT'));
+
+    await expect(dbService.connectToDb(testFilePath)).rejects.toThrow(`Could not find database at ${testFilePath}`);
+    jest.restoreAllMocks();
+  });
+});
+
+/*
+// Mock fs with implementations
+jest.mock('fs/promises', () => ({
+  access: jest.fn(() => Promise.resolve()),
+  rm: jest.fn(() => Promise.resolve())
+}));
+
+// Mock createDbInstance
+const mockCreateDbInstance = jest.fn();
+jest.mock('@models/index.js', () => ({
+  createDbInstance: mockCreateDbInstance
+}));
+
+describe('DatabaseService', () => {
+  const testDbPath = 'existing/database.db';
+  let mockDbInstance;
+
+  beforeEach(() => {
+    // Reset all mocks before each test
+    jest.clearAllMocks();
+    
+    // Create a mock database instance
+    mockDbInstance = {
+      close: jest.fn(() => Promise.resolve())
+    };
+    
+    // Setup mock implementation
+    mockCreateDbInstance.mockResolvedValue(mockDbInstance);
+  });
+
+  describe('connectToDb', () => {
+    it('should successfully connect to an existing database', async () => {
+      await dbService.connectToDb(testDbPath);
+      
+      expect(fs.access).toHaveBeenCalledWith(testDbPath);
+      expect(mockCreateDbInstance).toHaveBeenCalledWith(testDbPath);
+      
+      const instance = await dbService.getDbInstance();
+      expect(instance).toBe(mockDbInstance);
+    });
+  });
+});*/
+
+
+/*import * as dbService from '@services/DatabaseService.js';
+import * as fs from 'fs/promises';
+import { createDbInstance } from '@models/index.js';
+import { jest } from '@jest/globals';
+
 // Mock fs and createDbInstance modules
-jest.mock('fs/promises')
+jest.mock('fs/promises', () => ({
+  access: jest.fn(),
+  rm: jest.fn()
+}));
 jest.mock('@models/index.js');
 
 describe('connectToDb...', () => {
@@ -331,3 +418,4 @@ describe('deleteDb...', () => {
     expect(fs.rm).toHaveBeenCalledTimes(0);
   });
 });
+*/

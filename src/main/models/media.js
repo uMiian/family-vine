@@ -13,23 +13,27 @@ export function defineMedia(sequelize, DataTypes) {
       unique: true,
     },
     date: {
-      type: DataTypes.date,
+      type: DataTypes.DATE,
       allowNull: false
     },
     location: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: ""
     },
     what_description: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: ""
     },
     why_description: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: ""
     },
     fileType: {
       type: DataTypes.TEXT,
+      defaultValue: ""
     }
   }, {
     // Create a unique index on media file type

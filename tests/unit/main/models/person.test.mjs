@@ -3,11 +3,10 @@ import { definePerson } from '@models/person.js';
 
 describe('Person Model', () => {
   let sequelize;
-  let Person;
 
   beforeAll(async () => {
     sequelize = new Sequelize('sqlite::memory:', { logging: false }); // Create mock or in-memory SQLite database
-    Person = definePerson(sequelize, DataTypes);
+    definePerson(sequelize, DataTypes);
     await sequelize.sync(); // Sync the database (creates tables)
   });
 
@@ -17,23 +16,23 @@ describe('Person Model', () => {
   });
 
   test('Person model should be defined', () => {
-    expect(Person).toBeDefined();
+    expect(sequelize.models.Person).toBeDefined();
   });
 
   test('Should create a Person successfully', async () => {
-    const person = await Person.create({ name: 'John Doe' });
+    const person = await sequelize.models.Person.create({ name: 'John Doe' });
 
     expect(person).toBeDefined();
     expect(person.name).toBe('John Doe');
   });
 
   test('Should enforce unique constraint on name', async () => {
-    await Person.create({ name: 'Jane Doe' });
+    await sequelize.models.Person.create({ name: 'Jane Doe' });
 
-    await expect(Person.create({ name: 'Jane Doe' })).rejects.toThrow();
+    await expect(sequelize.models.Person.create({ name: 'Jane Doe' })).rejects.toThrow();
   });
 
   test('Should not allow null value for name', async () => {
-    await expect(Person.create({ name: null })).rejects.toThrow();
+    await expect(sequelize.models.Person.create({ name: null })).rejects.toThrow();
   });
 });

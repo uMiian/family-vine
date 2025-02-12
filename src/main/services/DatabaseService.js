@@ -49,7 +49,7 @@ export async function createAndConnectToDb(dbFilepath) {
 
 // Disconnect from a database
 export async function disconnectFromDb() {
-  if (!dbInstance & !currentDbFilepath) {
+  if (!dbInstance && !currentDbFilepath) {
     throw new Error('There is no database instance');
   }
 
@@ -91,7 +91,7 @@ export async function deleteDb(dbFilepath) {
 // Get database instance
 export async function getDbInstance() {
   // Ensure there is currently a db instance
-  if (!dbInstance & !currentDbFilepath) {
+  if (!dbInstance && !currentDbFilepath) {
     throw new Error('There is no database instance');
   }
   

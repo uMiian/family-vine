@@ -3,11 +3,10 @@ import { defineMedia } from '@models/media.js';
 
 describe('Media Model', () => {
   let sequelize;
-  let Media;
 
   beforeAll(async () => {
     sequelize = new Sequelize('sqlite::memory:', { logging: false }); // In-memory DB for testing
-    Media = defineMedia(sequelize, DataTypes);
+    defineMedia(sequelize, DataTypes);
     await sequelize.sync(); // Sync the model
   });
 
@@ -16,11 +15,12 @@ describe('Media Model', () => {
   });
 
   test('Model has correct attributes', () => {
-    const attributes = Object.keys(Media.rawAttributes);
+    const attributes = Object.keys(sequelize.models.Media.rawAttributes);
     expect(attributes).toEqual(
       expect.arrayContaining([
         'id',
         'filePath',
+        'date',
         'location',
         'what_description',
         'why_description',
@@ -31,32 +31,49 @@ describe('Media Model', () => {
 
   test('filePath is required and unique', async () => {
     expect.assertions(2);
-    
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
     try {
-      await Media.create({ fileType: 'image/jpeg' }); // Missing filePath
+      await sequelize.models.Media.create({ fileType: 'image/jpeg', date: tempDate }); // Missing filePath
     } catch (error) {
       expect(error.name).toBe('SequelizeValidationError');
     }
 
-    await Media.create({ filePath: 'uploads/photo1.jpg', fileType: 'image/png' });
+    await sequelize.models.Media.create({ filePath: 'uploads/photo1.jpg', fileType: 'image/png', date: tempDate });
 
     await expect(
-      Media.create({ filePath: 'uploads/photo1.jpg', fileType: 'image/jpeg' })
+      sequelize.models.Media.create({ filePath: 'uploads/photo1.jpg', fileType: 'image/jpeg', date: tempDate })
     ).rejects.toThrow();
   });
 
-  test('location, descriptions, and fileType are optional', async () => {
-    const media = await Media.create({ filePath: 'uploads/photo2.jpg' });
+  test('date is required', async () => {
+    expect.assertions(2);
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
+    
+    try {
+      await sequelize.models.Media.create({ filePath: 'uploads/photo7.jpg', fileType: 'image/jpeg'}); // Missing date
+    } catch (error) {
+      expect(error.name).toBe('SequelizeValidationError');
+    }
 
-    expect(media.location).toBeNull();
-    expect(media.what_description).toBeNull();
-    expect(media.why_description).toBeNull();
-    expect(media.fileType).toBeNull();
+    const media = await sequelize.models.Media.create({ filePath: 'uploads/photo7.jpg', date: tempDate, fileType: 'image/png' });
+    expect(media.date).toBe(tempDate);
+  });
+
+  test('location, descriptions, and fileType are optional', async () => {
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
+    const media = await sequelize.models.Media.create({ filePath: 'uploads/photo2.jpg', date: tempDate });
+
+    expect(media.location).toBe("");
+    expect(media.what_description).toBe("");
+    expect(media.why_description).toBe("");
+    expect(media.fileType).toBe("");
   });
 
   test('Can create a media entry', async () => {
-    const media = await Media.create({
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
+    const media = await sequelize.models.Media.create({
       filePath: 'uploads/photo3.jpg',
+      date: tempDate,
       location: 'New York',
       what_description: 'A beautiful sunset',
       why_description: 'Memorable vacation',
@@ -65,6 +82,7 @@ describe('Media Model', () => {
 
     expect(media.id).toBeDefined();
     expect(media.filePath).toBe('uploads/photo3.jpg');
+    expect(media.date).toBe(tempDate);
     expect(media.location).toBe('New York');
     expect(media.what_description).toBe('A beautiful sunset');
     expect(media.why_description).toBe('Memorable vacation');
@@ -72,30 +90,33 @@ describe('Media Model', () => {
   });
 
   test('Can fetch a media entry', async () => {
-    await Media.create({ filePath: 'uploads/photo4.jpg', location: 'Paris' });
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
+    await sequelize.models.Media.create({ filePath: 'uploads/photo4.jpg', date: tempDate, location: 'Paris' });
 
-    const media = await Media.findOne({ where: { filePath: 'uploads/photo4.jpg' } });
+    const media = await sequelize.models.Media.findOne({ where: { filePath: 'uploads/photo4.jpg' } });
 
     expect(media).not.toBeNull();
     expect(media.location).toBe('Paris');
   });
 
   test('Can update a media entry', async () => {
-    const media = await Media.create({ filePath: 'uploads/photo5.jpg', location: 'London' });
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
+    const media = await sequelize.models.Media.create({ filePath: 'uploads/photo5.jpg', date: tempDate, location: 'London' });
 
     await media.update({ location: 'Tokyo', fileType: 'image/png' });
 
-    const updatedMedia = await Media.findByPk(media.id);
+    const updatedMedia = await sequelize.models.Media.findByPk(media.id);
     expect(updatedMedia.location).toBe('Tokyo');
     expect(updatedMedia.fileType).toBe('image/png');
   });
 
   test('Can delete a media entry', async () => {
-    const media = await Media.create({ filePath: 'uploads/photo6.jpg' });
+    let tempDate = new Date('2000-01-02T:12:00:00Z');
+    const media = await sequelize.models.Media.create({ filePath: 'uploads/photo6.jpg', date: tempDate });
 
     await media.destroy();
 
-    const deletedMedia = await Media.findByPk(media.id);
+    const deletedMedia = await sequelize.models.Media.findByPk(media.id);
     expect(deletedMedia).toBeNull();
   });
 });
