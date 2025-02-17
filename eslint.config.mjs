@@ -7,14 +7,33 @@ import pluginReact from '@eslint-react/eslint-plugin';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
+    ignores: ["node_modules/", ".webpack/"], // Exclude .webpack directory
+  },
+  {
     // Main process (Node.js)
     files: ["src/main/**/*.js"],
     ...js.configs.recommended,
-    ...importPlugin.flatConfigs.recommended,
+    plugins: { import: importPlugin },
     languageOptions: {
       sourceType: "module",
-      globals: { ...globals.node }
-    }
+      globals: { ...globals.node },
+    },
+    settings: {
+      "import/resolver": {
+        alias: {
+          map: [
+            ["@main", "./src/main"],
+            ["@models", "./src/main/models"],
+            ["@services", "./src/main/services"],
+            ["@handlers", "./src/main/handlers"],
+          ],
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
+        },
+      },
+    },
+    rules: {
+      'import/default': 'off', 
+    },
   },
   {
     // Renderer process (Broswer)
@@ -31,11 +50,12 @@ export default [
   {
     // Jest Tests
     files: ["tests/**/*.test.js"],
-    plugins: { jest: pluginJest },
+    plugins: { jest: pluginJest, import: importPlugin },
       languageOptions: {
       globals: pluginJest.environments.globals.globals,
     },
     rules: {
+      'import/default': 'off',
       'jest/no-disabled-tests': 'warn',
       'jest/no-focused-tests': 'error',
       'jest/no-identical-title': 'error',
