@@ -1,7 +1,6 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import { defineMedia }  from './media.js';
 import { definePerson } from './person.js';
-import { defineLocation }  from './location.js';
 import { defineRelationships } from './relationships.js';
 
 // Check if we are in testing
@@ -27,7 +26,6 @@ export async function createDbInstance(dbFilepath) {
 
   // Define the models
   defineMedia(sequelizeInstance, DataTypes);
-  defineLocation(sequelizeInstance, DataTypes);
   definePerson(sequelizeInstance, DataTypes);
 
   // Define relationships between the models

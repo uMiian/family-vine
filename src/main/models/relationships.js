@@ -1,15 +1,7 @@
 // Given the defined models and some DataTypes, create the relationships between them
 export function defineRelationships(models, DataTypes) {
   // Unpack the models involved in relationships
-  const { Media, Person, Location } = models;
-
-  // Media can have one location
-  Media.belongsTo(Location, {
-    foreignKey: {
-      allowNull: true
-    }
-  })
-  Location.hasMany(Media);
+  const { Media, Person } = models;
 
   // Many people can be in a media
   Media.belongsToMany(Person, { through: 'MediaContainsPerson'});
