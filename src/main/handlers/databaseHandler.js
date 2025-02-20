@@ -22,9 +22,6 @@ const createTables = () => {
 createTables();
 
 db.close((err) => {
-    if (err) {
-        console.error(err.message);
-    } else {
-        console.log('Closed the database connection.');
-    }
+    if (err) console.error(err.message);
+    else console.log('Closed the database connection.');
 });
