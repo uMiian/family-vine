@@ -96,3 +96,4 @@ coverage/
 
 # db files
 .db
+media_database.db
