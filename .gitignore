@@ -93,3 +93,6 @@ out/
 
 # Jest code coverage report
 coverage/
+
+# db files
+.db
