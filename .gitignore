@@ -93,3 +93,7 @@ out/
 
 # Jest code coverage report
 coverage/
+
+# db files
+.db
+media_database.db
