@@ -1,37 +1,32 @@
 export class DataBaseTokens {
     static mediaTableCreator = `CREATE TABLE IF NOT EXISTS Media (
-        MediaID INTEGER PRIMARY KEY AUTOINCREMENT,
-        Filepath TEXT NOT NULL,
-        Filetype TEXT NOT NULL
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        filePath TEXT NOT NULL UNIQUE,
+        fileType TEXT DEFAULT '',
+        date TEXT NOT NULL,
+        location TEXT DEFAULT '',
+        what_description TEXT DEFAULT '',
+        why_description TEXT DEFAULT ''
     );`;
 
     static personTableCreator = `CREATE TABLE IF NOT EXISTS Person (
-        PersonID INTEGER PRIMARY KEY AUTOINCREMENT,
-        FirstName TEXT NOT NULL,
-        LastName TEXT NOT NULL
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE
     );`;
 
-    static mediaInfoTableCreator = `CREATE TABLE IF NOT EXISTS MediaInfo (
-        MediaID INTEGER PRIMARY KEY,
-        Location TEXT,
-        Date TEXT,
-        DescriptionOfWhat TEXT,
-        DescriptionOfWhy TEXT,
-        FOREIGN KEY (MediaID) REFERENCES Media(MediaID)
-    );`;
-
-    static mediaPersonTableCreator = `CREATE TABLE IF NOT EXISTS MediaPerson (
+    static mediaContainsPersonTableCreator = `CREATE TABLE IF NOT EXISTS MediaContainsPerson (
         MediaID INTEGER,
         PersonID INTEGER,
         PRIMARY KEY (MediaID, PersonID),
-        FOREIGN KEY (MediaID) REFERENCES Media(MediaID),
-        FOREIGN KEY (PersonID) REFERENCES Person(PersonID)
+        FOREIGN KEY (MediaID) REFERENCES Media(id),
+        FOREIGN KEY (PersonID) REFERENCES Person(id)
     );`;
 
-    static mediaCapturedByTableCreator = `CREATE TABLE IF NOT EXISTS MediaCapturedBy (
-        MediaID INTEGER PRIMARY KEY,
+    static mediaCapturedByPersonTableCreator = `CREATE TABLE IF NOT EXISTS MediaCapturedByPerson (
+        MediaID INTEGER,
         PersonID INTEGER,
-        FOREIGN KEY (MediaID) REFERENCES Media(MediaID),
-        FOREIGN KEY (PersonID) REFERENCES Person(PersonID)
+        PRIMARY KEY (MediaID, PersonID),
+        FOREIGN KEY (MediaID) REFERENCES Media(id),
+        FOREIGN KEY (PersonID) REFERENCES Person(id)
     );`;
 }

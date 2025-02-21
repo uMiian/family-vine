@@ -6,15 +6,12 @@ const db = new sqlite3.Database('media_database.db', (err) => {
     else console.log('Connected to the SQLite database.');
 });
 
-const dbTokens = new DataBaseTokens();
-
 const createTables = () => {
     db.serialize(() => {
         db.run(DataBaseTokens.mediaTableCreator);
         db.run(DataBaseTokens.personTableCreator);
-        db.run(DataBaseTokens.mediaInfoTableCreator);
-        db.run(DataBaseTokens.mediaPersonTableCreator);
-        db.run(DataBaseTokens.mediaCapturedByTableCreator);
+        db.run(DataBaseTokens.mediaContainsPersonTableCreator);
+        db.run(DataBaseTokens.mediaCapturedByPersonTableCreator);
         console.log('Tables created successfully.');
     });
 };
