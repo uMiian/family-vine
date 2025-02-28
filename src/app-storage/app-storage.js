@@ -36,4 +36,12 @@ class AppStorage extends LocalStorageUtil {
   static getUsername() {
     return this.get(this.KEYS.USERNAME);
   }
+
+  static setName(name) {
+    this.set(this.KEYS.NAME, name);
+  }
+
+  static getName() {
+    return this.get(this.KEYS.NAME);
+  }
 }
